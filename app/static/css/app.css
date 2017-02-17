@@ -1,0 +1,16 @@
+.top-buffer {
+  margin-top: 10vh;
+  margin-bottom: 5vh;
+}
+
+.video-nav-bar-container {
+  width: 100%;
+  height: 100%;
+}
+
+.video-nav-bar {
+  width: 100%;
+  height: 25%;
+  fill: blue;
+  opacity: 0.5;
+}

@@ -1,3 +1,43 @@
 {% extends "base.html" %}
+
+{% block css %}
+  {{ super() }}
+  <link href="//vjs.zencdn.net/5.11/video-js.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+  <script src="//vjs.zencdn.net/5.11/video.min.js"></script>
+{% endblock %}
+
 {% block content %}
+  <div class="container">
+    <div class="row top-buffer">
+      <div class="col-md-8">
+        <div class="embed-responsive embed-responsive-16by9">
+            <video
+              id="video-player"
+              class="video-js vjs-16-9"
+              controls
+              preload="auto"
+              data-setup='{}'>
+              <p class="vjs-no-js">
+                To view this video please enable JavaScript, and consider upgrading to a
+                web browser that
+                <a href="http://videojs.com/html5-video-support/" target="_blank">
+                  supports HTML5 video
+                </a>
+              </p>
+            </video>
+          </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-8">
+        <svg class="video-nav-bar-container">
+          <rect class="video-nav-bar" rx="20" ry="20"/>
+        </svg>
+      </div>
+    </div>
+  </div>
 {% endblock %}

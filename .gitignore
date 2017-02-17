@@ -2,6 +2,7 @@ virtualenv
 venv
 vmv
 __pycache__
+.cache
 *.pyc
 *.un~
 *.swp
