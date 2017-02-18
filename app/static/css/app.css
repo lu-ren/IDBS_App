@@ -1,6 +1,16 @@
 .top-buffer {
-  margin-top: 10vh;
-  margin-bottom: 5vh;
+  margin-top: 5vh;
+  width: inherit%;
+}
+
+.browser-sidebar {
+  height: 85vh;
+  margin-right: 3vh;
+  overflow-y: scroll;
+}
+
+.list-group-item:hover {
+    background-color: rgba(0, 0, 255, 0.3);
 }
 
 .video-nav-bar-container {
@@ -14,3 +24,9 @@
   fill: blue;
   opacity: 0.5;
 }
+.top5 { margin-top:5vh; }
+.top7 { margin-top:7vh; }
+.top10 { margin-top:10vh; }
+.top15 { margin-top:15vh; }
+.top17 { margin-top:17vh; }
+.top30 { margin-top:30vh; }

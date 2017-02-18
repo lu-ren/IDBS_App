@@ -13,31 +13,85 @@
 {% block content %}
   <div class="container">
     <div class="row top-buffer">
-      <div class="col-md-8">
-        <div class="embed-responsive embed-responsive-16by9">
-            <video
-              id="video-player"
-              class="video-js vjs-16-9"
-              controls
-              preload="auto"
-              data-setup='{}'>
-              <p class="vjs-no-js">
-                To view this video please enable JavaScript, and consider upgrading to a
-                web browser that
-                <a href="http://videojs.com/html5-video-support/" target="_blank">
-                  supports HTML5 video
-                </a>
-              </p>
-            </video>
+      <div class="col-md-4 browser-sidebar-section">
+        <p class="browser-result"> Results: </p>
+        <div class="browser-sidebar">
+          <ul class="list-group">
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-8 video-sidebar-section">
+        <div class="row">
+          <div class="embed-responsive embed-responsive-16by9">
+              <video
+                id="video-player"
+                class="video-js vjs-16-9"
+                controls
+                preload="auto"
+                data-setup='{}'>
+                <p class="vjs-no-js">
+                  To view this video please enable JavaScript, and consider upgrading to a
+                  web browser that
+                  <a href="http://videojs.com/html5-video-support/" target="_blank">
+                    supports HTML5 video
+                  </a>
+                </p>
+              </video>
+            </div>
+          </div>
+          <div class="row">
+              <svg class="video-nav-bar-container top7">
+                <rect id="nav-bar" class="video-nav-bar" rx="5" ry="5"/>
+              </svg>
           </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-8">
-        <svg class="video-nav-bar-container">
-          <rect class="video-nav-bar" rx="20" ry="20"/>
-        </svg>
-      </div>
-    </div>
   </div>
+{% endblock %}
+
+{% block custom_scripts %}
+  <script>
+    var navBar = document.getElementById('nav-bar');
+    createVideoList();
+
+    function createVideoList() {
+      var videoFiles = JSON.parse('{{ videoFiles|safe }}');
+      var videoList = document.getElementsByClassName('list-group')[0];
+      var browserResult = document.getElementsByClassName('browser-result')[0];
+
+      browserResult.innerHTML = 'Results: ' + videoFiles.length;
+
+      for (let i = 0, len = videoFiles.length; i < len; i++) {
+        let element = document.createElement('li');
+        element.className = 'list-group-item';
+        element.appendChild(document.createTextNode(videoFiles[i].split('/').pop()));
+        videoList.appendChild(element);
+      }
+    }
+    // // var navBar = document.getElementById('nav-bar');
+
+    // navBar.addEventListener('mousemove', moveIn);
+    // navBar.addEventListener('mouseleave', moveOut);
+
+    // function moveIn(event) {
+      // let target = event.target;
+      // let x = event.clientX, y = event.clientY;
+      //
+      // let line = document.getElementById('mouse-line');
+      //
+      // if (!line) {
+      //   //Create line element at position of mouse cursor
+      //   line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      //   line.setAttributeNS(null, 'id', 'mouse-line');
+      // }
+      // line.setAttributeNS(null, 'x1', x);
+      // line.setAttributeNS(null, 'x2', x);
+      // line.setAttributeNS(null, 'y1', )
+    // }
+
+    // function moveOut(event) {
+      // let target = event.target;
+      //Need to remove line element
+    // }
+  </script>
 {% endblock %}
