@@ -55,18 +55,23 @@
     createVideoList();
 
     function createVideoList() {
-      var videoFiles = JSON.parse('{{ videoFiles|safe }}');
-      var videoList = document.getElementsByClassName('list-group')[0];
-      var browserResult = document.getElementsByClassName('browser-result')[0];
+      let videoFiles = JSON.parse('{{ videoFiles|safe }}');
+      let videoList = document.getElementsByClassName('list-group')[0];
+      let browserResult = document.getElementsByClassName('browser-result')[0];
 
       browserResult.innerHTML = 'Results: ' + videoFiles.length;
 
       for (let i = 0, len = videoFiles.length; i < len; i++) {
         let element = document.createElement('li');
         element.className = 'list-group-item';
+        element.onclick = videoOnClick(videoFiles[i]);
         element.appendChild(document.createTextNode(videoFiles[i].split('/').pop()));
         videoList.appendChild(element);
       }
+    }
+
+    function videoOnClick(filePath) {
+
     }
     // // var navBar = document.getElementById('nav-bar');
 
