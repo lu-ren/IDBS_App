@@ -9,7 +9,10 @@ function createThumbnailList() {
 
 function createImageElementString(b64Data) {
     let inner = '\"data:image/png;base64, ' + b64Data + '\"';
-    return '<li><img src='  + inner + '></li>';
+    //return '<li><img src='  + inner + '></li>';
+    return '<div class=\"col-md-4 thumb\"><a class=\"thumbnail\" href=\"#\"><img src='  
+        + inner + '></a></div>';
+        
 }
 
 createThumbnailList();

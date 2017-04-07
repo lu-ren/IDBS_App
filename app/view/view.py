@@ -43,7 +43,7 @@ def loadImage():
     loaded = session['imgLoadCount']
     videoData = []
 
-    numLoad = min(len(hklFiles) - loaded, 10)
+    numLoad = min(len(hklFiles) - loaded, 24)
 
     for i in range(numLoad):
         videoData.append((getBase64Img(hklFiles[i]), videoFiles[i]))
