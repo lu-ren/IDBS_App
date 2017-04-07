@@ -56,4 +56,4 @@ def loadImage():
 def main():
     jsonVideoData = loadImage()
 
-    return render_template('index.html', videoFiles=jsonVideoData)
+    return render_template('index.html', jsonVideoData=jsonVideoData)

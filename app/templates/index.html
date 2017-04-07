@@ -14,10 +14,10 @@
   <div class="container">
     <div class="row top-buffer">
       <div class="col-md-6 browser-sidebar-section">
-        <p class="browser-result"> Results: </p>
         <div class="browser-sidebar">
-          <ul class="list-group">
-          </ul>
+            <ul class="thumbnail-list">
+            <!--<img src="{{ url_for('static', filename='images/loading.jpg') }}">-->
+            </ul>
         </div>
       </div>
       <div class="col-md-6 video-sidebar-section">
@@ -50,6 +50,11 @@
 {% endblock %}
 
 {% block custom_scripts %}
+<script>
+    //Includes all variables passed from server to client
+
+    var videoData = JSON.parse('{{ jsonVideoData | safe }}');
+</script>
 <script type="text/javascript" src="{{ url_for('static', filename='index.js')}}">
   </script>
 {% endblock %}
