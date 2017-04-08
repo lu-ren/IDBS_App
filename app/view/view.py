@@ -37,6 +37,7 @@ def getVideoHklFiles():
 def loadImage():
     videoFiles, hklFiles = getVideoHklFiles()
 
+    pdb.set_trace()
     if 'imgLoadCount' not in session:
         session['imgLoadCount'] = 0
 
@@ -54,6 +55,7 @@ def loadImage():
 
 @index.route('/', methods=['GET', 'POST'])
 def main():
+    session.clear()
     jsonVideoData = loadImage()
 
     return render_template('index.html', jsonVideoData=jsonVideoData)
