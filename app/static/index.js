@@ -1,9 +1,12 @@
+//Data is the list [base64encodedData, videoPath]
 function addThumbnails(data) {
     var $thumbnailList = $('.thumbnail-list');
 
     for (let i = 0, len = data.length; i < len; i++) {
         let elementString = createImageElementString(data[i][0]);
-        $thumbnailList.append(elementString);
+        $thumbnailList.append(elementString).on('click', 'a', function() {
+            alert(i);
+        });
     }
 }
 
@@ -12,6 +15,16 @@ function createImageElementString(b64Data) {
 
     return '<div class=\"col-md-4 thumb\"><a class=\"thumbnail\" href=\"#\"><img src='  
         + inner + '></a></div>';
+}
+
+function playVideo(videoPath) {
+    let sourceElement = '<source src=\"' + videoPath + '\" type=video/avi>';
+
+    if ($('video').find('source').length) {
+        $('video').append(sourceElement);
+    } else {
+        $('video.source').replaceWith(sourceElement);
+    }
 }
 
 $('.browser-sidebar').on('scroll', function() {
