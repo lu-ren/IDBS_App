@@ -1,12 +1,11 @@
 //Data is the list [base64encodedData, videoPath]
 function addThumbnails(data) {
-    var $thumbnailList = $('.thumbnail-list');
-
     for (let i = 0, len = data.length; i < len; i++) {
-        let elementString = createImageElementString(data[i][0]);
-        $thumbnailList.append(elementString).on('click', 'a', function() {
+        let $elementString = $(createImageElementString(data[i][0]));
+        $elementString.on('click', function() {
             alert(i);
         });
+        $('.thumbnail-list').append($elementString);
     }
 }
 
