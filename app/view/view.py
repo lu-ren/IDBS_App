@@ -37,7 +37,6 @@ def getVideoHklFiles():
 def loadImage():
     videoFiles, hklFiles = getVideoHklFiles()
 
-    pdb.set_trace()
     if 'imgLoadCount' not in session:
         session['imgLoadCount'] = 0
 
@@ -47,7 +46,8 @@ def loadImage():
     numLoad = min(len(hklFiles) - loaded, 24)
 
     for i in range(numLoad):
-        videoData.append((getBase64Img(hklFiles[i]), videoFiles[i]))
+        j = loaded + i
+        videoData.append((getBase64Img(hklFiles[j]), videoFiles[j]))
 
     session['imgLoadCount'] += numLoad
 

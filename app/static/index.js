@@ -1,8 +1,8 @@
-function createThumbnailList() {
+function addThumbnails(data) {
     var $thumbnailList = $('.thumbnail-list');
 
-    for (let i = 0, len = videoData.length; i < len; i++) {
-        let elementString = createImageElementString(videoData[i][0]);
+    for (let i = 0, len = data.length; i < len; i++) {
+        let elementString = createImageElementString(data[i][0]);
         $thumbnailList.append(elementString);
     }
 }
@@ -19,8 +19,9 @@ $('.browser-sidebar').on('scroll', function() {
         let xhr = new XMLHttpRequest();
 
         xhr.onreadystatechange = function() {
-            if (xhr.readState === XMLHttpRequest.DONE) {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
                 let newVideoData = JSON.parse(xhr.responseText);
+                addThumbnails(newVideoData);
             }
         };
 
@@ -28,4 +29,5 @@ $('.browser-sidebar').on('scroll', function() {
         xhr.send(null);
     }
 });
-createThumbnailList();
+
+addThumbnails(videoData);
