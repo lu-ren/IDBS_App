@@ -13,3 +13,20 @@ def init_app(configFile=None):
     from app.view import index
 
     app.register_blueprint(index)
+
+    def _setupVideoObjLst():
+        from glob import glob
+        import os
+        import pdb
+
+        videoPath = app.config['VIDEO_PATH']
+        videoFiles = glob(os.path.realpath(videoPath) + '/*.mp4')
+        videoFiles.sort()
+
+        hklPath = app.config['HKL_PATH']
+        hklFiles = glob(os.path.realpath(hklPath) + '/*000.hkl')
+        hklFiles.sort()
+
+        app.videoObjLst = zip(hklFiles, videoFiles)
+
+    _setupVideoObjLst()

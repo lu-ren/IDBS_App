@@ -2,8 +2,9 @@
 function addThumbnails(data) {
     for (let i = 0, len = data.length; i < len; i++) {
         let $elementString = $(createImageElementString(data[i][0]));
-        $elementString.on('click', function() {
-            alert(i);
+        $elementString.on('click', function() { 
+            //playVideo(data[i][1]); 
+            alert(data[i][1]);
         });
         $('.thumbnail-list').append($elementString);
     }
@@ -19,7 +20,7 @@ function createImageElementString(b64Data) {
 function playVideo(videoPath) {
     let sourceElement = '<source src=\"' + videoPath + '\" type=video/avi>';
 
-    if ($('video').find('source').length) {
+    if ($('video').find('source').length === 0) {
         $('video').append(sourceElement);
     } else {
         $('video.source').replaceWith(sourceElement);

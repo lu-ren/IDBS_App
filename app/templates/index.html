@@ -2,12 +2,12 @@
 
 {% block css %}
   {{ super() }}
-  <link href="//vjs.zencdn.net/5.11/video-js.min.css" rel="stylesheet">
+  <!--<link href="//vjs.zencdn.net/5.11/video-js.min.css" rel="stylesheet">-->
 {% endblock %}
 
 {% block scripts %}
   {{ super() }}
-  <script src="//vjs.zencdn.net/5.11/video.min.js"></script>
+  <!--<script src="//vjs.zencdn.net/5.11/video.min.js"></script>-->
 {% endblock %}
 
 {% block content %}
@@ -23,20 +23,23 @@
       <div class="col-md-6 video-sidebar-section">
         <div class="row">
           <div class="embed-responsive embed-responsive-16by9">
-              <video
-                id="video-player"
-                class="video-js vjs-16-9"
-                controls
-                preload="auto"
-                data-setup='{}'>
-                <p class="vjs-no-js">
-                  To view this video please enable JavaScript, and consider upgrading to a
-                  web browser that
-                  <a href="http://videojs.com/html5-video-support/" target="_blank">
-                    supports HTML5 video
-                  </a>
-                </p>
+              <video src="http://larsde.cs.columbia.edu:8008/static/videos/test.mp4" controls>
               </video>
+              <!--<video-->
+                <!--id="video-player"-->
+                <!--class="video-js vjs-16-9"-->
+                <!--controls-->
+                <!--preload="auto"-->
+                <!--data-setup='{}'>-->
+                <!--<p class="vjs-no-js">-->
+                  <!--To view this video please enable JavaScript, and consider upgrading to a-->
+                  <!--web browser that-->
+                  <!--<a href="http://videojs.com/html5-video-support/" target="_blank">-->
+                    <!--supports HTML5 video-->
+                  <!--</a>-->
+                <!--</p>-->
+                <!--<source src="{{ url_for('static', filename='videos/v_YoYo_g25_c05.mp4') }}" type="video/mp4">-->
+              <!--</video>-->
             </div>
           </div>
           <div class="row">

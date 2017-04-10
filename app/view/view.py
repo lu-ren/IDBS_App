@@ -1,13 +1,11 @@
 from app import app
 from flask import Blueprint, render_template, session
-from glob import glob
 from scipy.misc import imsave
 import base64
 import hickle
 import io
 import json
 import numpy
-import os
 import pdb
 
 index = Blueprint('index', __name__)
@@ -21,21 +19,9 @@ def getBase64Img(hklFile):
 
     return base64.b64encode(buf.read())
 
-def getVideoHklFiles():
-    videoPath = app.config['VIDEO_PATH']
-    videoFiles = glob(os.path.realpath(videoPath) + '/*.avi') 
-    videoFiles.sort()
-
-    hklPath = app.config['HKL_PATH']
-    hklFiles = glob(os.path.realpath(hklPath) + '/*000.hkl')
-    hklFiles.sort()
-
-    return (videoFiles, hklFiles)
-
-
 @index.route('/loadimage')
 def loadImage():
-    videoFiles, hklFiles = getVideoHklFiles()
+    videoObjLst = app.videoObjLst
 
     if 'imgLoadCount' not in session:
         session['imgLoadCount'] = 0
@@ -43,11 +29,12 @@ def loadImage():
     loaded = session['imgLoadCount']
     videoData = []
 
-    numLoad = min(len(hklFiles) - loaded, 24)
+    numLoad = min(len(videoObjLst) - loaded, 24)
 
     for i in range(numLoad):
         j = loaded + i
-        videoData.append((getBase64Img(hklFiles[j]), videoFiles[j]))
+        hklFile, videoFile = videoObjLst[j]
+        videoData.append((getBase64Img(hklFile), videoFile))
 
     session['imgLoadCount'] += numLoad
 
