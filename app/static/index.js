@@ -1,3 +1,5 @@
+var videoElement;
+
 //Data is the list [base64encodedData, videoPath]
 function addThumbnails(data) {
     for (let i = 0, len = data.length; i < len; i++) {
@@ -17,9 +19,16 @@ function createImageElementString(b64Data) {
 }
 
 function playVideo(videoPath) {
-    var videoElement = $('video')[0];
     videoElement.src = videoPath;
     videoElement.load();
+}
+
+function setup() {
+    $(document).ready(function () {
+        videoElement = $('video')[0];
+        videoElement.autoplay = true;
+        addThumbnails(videoData);
+    });
 }
 
 $('.browser-sidebar').on('scroll', function() {
@@ -38,4 +47,4 @@ $('.browser-sidebar').on('scroll', function() {
     }
 });
 
-addThumbnails(videoData);
+setup();
