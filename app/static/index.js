@@ -1,4 +1,5 @@
 var videoElement;
+var videoNav;
 
 //Data is the list [base64encodedData, videoPath]
 function addThumbnails(data) {
@@ -25,8 +26,10 @@ function playVideo(videoPath) {
 
 function setup() {
     $(document).ready(function () {
+        videoNav = $('#nav-bar')[0];
         videoElement = $('video')[0];
         videoElement.autoplay = true;
+
         addThumbnails(videoData);
     });
 }
