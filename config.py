@@ -5,6 +5,7 @@ class BasicConfig(object):
     WTF_CSRF_ENABLED = True
     SECRET_KEY = '3jIUW8AMdlVv3gxJg9cRtkFUsyoK1KlK2+Folt77FEY='
     VIDEO_PATH = '/data/UCF/data/UCF101/Videos-converted'
+    SYMLK_VIDEO_PATH = '/static/videos/UCF' #symlinked path from app directory
     HKL_PATH = '/data/UCF/preproc/UCF_all_clips'
     secret_key = os.urandom(32)
 

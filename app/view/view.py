@@ -6,6 +6,7 @@ import hickle
 import io
 import json
 import numpy
+import os
 import pdb
 
 index = Blueprint('index', __name__)
@@ -18,6 +19,9 @@ def getBase64Img(hklFile):
     buf.seek(0)
 
     return base64.b64encode(buf.read())
+
+def getAppPath(videoFile):
+    return app.config['SYMLK_VIDEO_PATH'] + '/' + os.path.basename(videoFile)
 
 @index.route('/loadimage')
 def loadImage():
@@ -34,7 +38,7 @@ def loadImage():
     for i in range(numLoad):
         j = loaded + i
         hklFile, videoFile = videoObjLst[j]
-        videoData.append((getBase64Img(hklFile), videoFile))
+        videoData.append((getBase64Img(hklFile), getAppPath(videoFile)))
 
     session['imgLoadCount'] += numLoad
 

@@ -16,30 +16,27 @@
       <div class="col-md-6 browser-sidebar-section">
         <div class="browser-sidebar">
             <ul class="thumbnail-list">
-            <!--<img src="{{ url_for('static', filename='images/loading.jpg') }}">-->
             </ul>
         </div>
       </div>
       <div class="col-md-6 video-sidebar-section">
         <div class="row">
           <div class="embed-responsive embed-responsive-16by9">
-              <video src="http://larsde.cs.columbia.edu:8008/static/videos/test.mp4" controls>
+              <video
+                id="video-player"
+                class="video-js vjs-16-9"
+                controls
+                preload="auto"
+                data-setup='{}'>
+                <p class="vjs-no-js">
+                  To view this video please enable JavaScript, and consider upgrading to a
+                  web browser that
+                  <a href="http://videojs.com/html5-video-support/" target="_blank">
+                    supports HTML5 video
+                  </a>
+                </p>
+                <!--<source src="{{ url_for('static', filename='videos/Videos-converted/v_YoYo_g25_c05.mp4') }}" type="video/mp4">-->
               </video>
-              <!--<video-->
-                <!--id="video-player"-->
-                <!--class="video-js vjs-16-9"-->
-                <!--controls-->
-                <!--preload="auto"-->
-                <!--data-setup='{}'>-->
-                <!--<p class="vjs-no-js">-->
-                  <!--To view this video please enable JavaScript, and consider upgrading to a-->
-                  <!--web browser that-->
-                  <!--<a href="http://videojs.com/html5-video-support/" target="_blank">-->
-                    <!--supports HTML5 video-->
-                  <!--</a>-->
-                <!--</p>-->
-                <!--<source src="{{ url_for('static', filename='videos/v_YoYo_g25_c05.mp4') }}" type="video/mp4">-->
-              <!--</video>-->
             </div>
           </div>
           <div class="row">

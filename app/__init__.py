@@ -16,8 +16,8 @@ def init_app(configFile=None):
 
     def _setupVideoObjLst():
         from glob import glob
+        from random import shuffle
         import os
-        import pdb
 
         videoPath = app.config['VIDEO_PATH']
         videoFiles = glob(os.path.realpath(videoPath) + '/*.mp4')
@@ -28,5 +28,6 @@ def init_app(configFile=None):
         hklFiles.sort()
 
         app.videoObjLst = zip(hklFiles, videoFiles)
+        shuffle(app.videoObjLst)
 
     _setupVideoObjLst()
