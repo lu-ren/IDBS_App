@@ -13,15 +13,9 @@
   overflow-y: scroll;
 }
 
-.video-nav-bar-container {
-  width: 100%;
-  height: 100%;
-}
-
 .video-nav-bar {
   width: 100%;
-  /*height: 5vh;*/
-  height: 100%;
+  height: 5vh;
   background: var(--teal-color);
   opacity: 0.5;
 }
