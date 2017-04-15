@@ -20,7 +20,7 @@ def init_app(configFile=None):
         import os
 
         videoPath = app.config['VIDEO_PATH']
-        videoFiles = glob(os.path.realpath(videoPath) + '/*.mp4')
+        videoFiles = glob(os.path.realpath(videoPath) + '/*.webm')
         videoFiles.sort()
 
         hklPath = app.config['HKL_PATH']

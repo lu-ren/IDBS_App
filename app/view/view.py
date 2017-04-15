@@ -1,5 +1,5 @@
 from app import app
-from flask import Blueprint, render_template, session
+from flask import Blueprint, render_template, session, request
 from scipy.misc import imsave
 import base64
 import hickle
@@ -7,6 +7,7 @@ import io
 import json
 import numpy
 import os
+import subprocess
 import pdb
 
 index = Blueprint('index', __name__)
@@ -22,6 +23,19 @@ def getBase64Img(hklFile):
 
 def getAppPath(videoFile):
     return app.config['SYMLK_VIDEO_PATH'] + '/' + os.path.basename(videoFile)
+
+@index.route('/videometadata', methods=['POST'])
+def getVideoMetaData():
+    videoPath = app.root_path + request.data
+    #fps comes back as a string like 25/1
+    fps = subprocess.check_output(['ffprobe', '-v', 'error', '-select_streams', 'v',
+        '-of', 'default=noprint_wrappers=1:nokey=1', '-show_entries', 
+        'stream=r_frame_rate', videoPath]).strip().split('/')
+
+    meta = {}
+    meta['fps'] = int(fps[0]) / int(fps[1])
+
+    return json.dumps(meta)
 
 @index.route('/loadimage')
 def loadImage():

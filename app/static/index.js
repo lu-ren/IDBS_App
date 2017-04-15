@@ -3,6 +3,9 @@ var videoNavCanvas;
 
 var canvasObj = {}; //Container for video nav canvas properties
 
+var url = 'http://larsde.cs.columbia.edu:8008';
+var testingUrl = 'http://larsde.cs.columbia.edu:8007';
+
 //Data is the list [base64encodedData, videoPath]
 function addThumbnails(data) {
     for (let i = 0, len = data.length; i < len; i++) {
@@ -29,9 +32,21 @@ function playVideo(videoPath) {
     //Pixels per second
     videoPlayer.ready(function() {
         this.on('loadedmetadata', function() {
-            canvasObj.ctx.clearRect(0, 0, videoNavCanvas.width, videoNavCanvas.height);
-            canvasObj.pps = Math.floor(videoNavCanvas.width / videoPlayer.duration());
-            canvasObj.hasVideo = true;
+            let xhr = new XMLHttpRequest(); //Getting the fps of video from server
+
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    let videoMetaObj = JSON.parse(xhr.responseText);
+                    canvasObj.ctx.clearRect(0, 0, videoNavCanvas.width, videoNavCanvas.height);
+                    canvasObj.pps = Math.floor(videoNavCanvas.width / videoPlayer.duration());
+                    canvasObj.fps = videoMetaObj.fps;
+                    canvasObj.hasVideo = true;
+                    $('button').prop('disabled', true);
+                }
+            }
+
+            xhr.open('POST', url + '/videometadata');
+            xhr.send(videoPath);
         });
     });
 }
@@ -65,11 +80,11 @@ function mouseMove(e) {
 function mouseUp() {
     canvasObj.isDrawing = false;
     videoNavCanvas.style.cursor = 'default';
+    $('button').prop('disabled', false);
 }
 
 function getSecondsFromVideo(pos) {
-    let xPos = pos.x;
-    return Math.floor(xPos / canvasObj.pps);
+    return (pos.x / videoNavCanvas.width) * videoPlayer.duration();
 }
 
 function getMousePosition(e) {
@@ -117,7 +132,7 @@ $('.browser-sidebar').on('scroll', function() {
             }
         };
 
-        xhr.open('GET', 'http://larsde.cs.columbia.edu:8008/loadimage');
+        xhr.open('GET', url + '/loadimage');
         xhr.send(null);
     }
 });
