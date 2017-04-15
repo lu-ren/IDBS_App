@@ -117,6 +117,9 @@ function generateThumbnailFromVideo(positivity) {
         $elementString.find('a').css('background-color', 'rgba(255, 0, 0, 0.5');
     }
 
+    $elementString.on('click', function() {
+        $(this).remove();
+    });
     $('.query-list').append($elementString);
 }
 
