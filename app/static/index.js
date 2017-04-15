@@ -3,6 +3,8 @@ var videoNavCanvas;
 
 var canvasObj = {}; //Container for video nav canvas properties
 
+var queries = [];
+
 var url = 'http://larsde.cs.columbia.edu:8008';
 var testingUrl = 'http://larsde.cs.columbia.edu:8007';
 
@@ -80,6 +82,7 @@ function mouseMove(e) {
 function mouseUp() {
     canvasObj.isDrawing = false;
     videoNavCanvas.style.cursor = 'default';
+    videoPlayer.pause();
     $('button').prop('disabled', false);
 }
 
@@ -96,6 +99,25 @@ function getMousePosition(e) {
         x: (e.clientX - rect.left) * scaleX,
         y: (e.clientY - rect.top) * scaleY
     };
+}
+
+function generateThumbnailFromVideo(positivity) {
+    positivity = positivity || 'positive';
+    let canvas = document.createElement('canvas');
+    canvas.width = videoNavCanvas.width;
+    canvas.height = videoNavCanvas.height;
+    canvas.getContext('2d')
+        .drawImage($('video')[0], 0, 0, canvas.width, canvas.height);
+    let $elementString = $('<div class=\"col-md-4 thumb\"><a class=\"thumbnail\" href=\"#\"><img src=\"'
+        + canvas.toDataURL() + '\"></img></a></div>');
+
+    if (positivity === 'positive') {
+        $elementString.find('a').css('background-color', 'rgba(0, 0, 255, 0.5)');
+    } else {
+        $elementString.find('a').css('background-color', 'rgba(255, 0, 0, 0.5');
+    }
+
+    $('.query-list').append($elementString);
 }
 
 function setup() {
@@ -117,6 +139,14 @@ function setup() {
             mouseUp();
         }).on('mousemove', function(e) {
             mouseMove(e);
+        });
+
+        $('.positive-btn').on('click', function() {
+            generateThumbnailFromVideo('positive');
+        });
+
+        $('.negative-btn').on('click', function() {
+            generateThumbnailFromVideo('negative');
         });
     });
 }

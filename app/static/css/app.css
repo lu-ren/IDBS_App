@@ -13,6 +13,15 @@
   overflow-y: scroll;
 }
 
+.query-sidebar {
+    height: 22vh;
+    overflow-y: scroll;
+}
+
+.submit-btn {
+    float: right;
+}
+
 .video-nav-bar {
   width: 100%;
   height: 5vh;
