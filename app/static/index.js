@@ -3,7 +3,8 @@ var videoNavCanvas;
 
 var canvasObj = {}; //Container for video nav canvas properties
 
-var queries = [];
+var queries = []; // [[videoName, startTime, endTime], ...]
+var queryContainer = {}; //container for a single query
 
 var url = 'http://larsde.cs.columbia.edu:8008';
 var testingUrl = 'http://larsde.cs.columbia.edu:8007';
@@ -60,6 +61,7 @@ function mouseDown(e) {
         videoNavCanvas.style.cursor = 'crosshair';
         canvasObj.isDrawing = true;
         canvasObj.startX = pos.x;
+        queryContainer.startFrame = Math.floor(getSecondsFromVideo(pos) * canvasObj.fps);
     }
 }
 
@@ -75,6 +77,7 @@ function mouseMove(e) {
 
         //Calculate seek position in video
         let seconds = getSecondsFromVideo(pos);
+        queryContainer.endFrame = Math.floor(seconds * canvasObj.fps);
         videoPlayer.currentTime(seconds);
     }
 }
@@ -121,6 +124,16 @@ function generateThumbnailFromVideo(positivity) {
         $(this).remove();
     });
     $('.query-list').append($elementString);
+    queryContainer.videoName = getNameFromPath(videoPlayer.src());
+}
+
+function getNameFromPath(filePath) {
+    return filePath.split('/').pop();
+}
+
+function addQueryContainerToQuery() {
+    queries.push([queryContainer.videoName, queryContainer.startFrame, 
+        queryContainer.endFrame, queryContainer.positivity]);
 }
 
 function setup() {
@@ -146,10 +159,24 @@ function setup() {
 
         $('.positive-btn').on('click', function() {
             generateThumbnailFromVideo('positive');
+            queryContainer.positivity = 'positive';
+            addQueryContainerToQuery();
         });
 
         $('.negative-btn').on('click', function() {
             generateThumbnailFromVideo('negative');
+            queryContainer.positivity = 'negative';
+            addQueryContainerToQuery();
+        });
+
+        $('.submit-btn').on('click', function() {
+            //alert(queries);
+            let xhr = new XMLHttpRequest();
+            
+            xhr.open('POST', url + '/submitquery');
+            xhr.send(JSON.stringify(queries));
+            $('.query-list').empty();
+            queries = [];
         });
     });
 }

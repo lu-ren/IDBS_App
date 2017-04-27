@@ -24,6 +24,17 @@ def getBase64Img(hklFile):
 def getAppPath(videoFile):
     return app.config['SYMLK_VIDEO_PATH'] + '/' + os.path.basename(videoFile)
 
+@index.route('/submitquery', methods=['POST'])
+def submitQuery():
+    query = json.loads(request.data)
+    return 0
+	#print query
+    #with open('selections.txt', 'w') as f:
+        #for item in query:
+            #for val in item:
+                #f.write(str(val) + ',')
+    #return 0
+
 @index.route('/videometadata', methods=['POST'])
 def getVideoMetaData():
     videoPath = app.root_path + request.data
