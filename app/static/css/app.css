@@ -2,6 +2,20 @@
     --teal-color: #41cde2;
 }
 
+svg {
+    width: 100%;
+}
+
+.close-btn {
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    float: right;
+    overflow: hidden;
+    outline:none;
+}
+
 .top-buffer {
   margin-top: 5vh;
   width: inherit%;

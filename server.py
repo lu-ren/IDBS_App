@@ -1,3 +1,10 @@
+#import sys
+#import os
+
+#with open('/data/UCF/demo/logs/sysinfo.txt', 'w') as f:
+    #f.write(str(sys.version_info[0]) + '\n')
+    #f.write(str(sys.path))
+
 from app import init_app 
 import os
 

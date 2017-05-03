@@ -1,4 +1,9 @@
 from flask import Flask
+from flask_session import Session
+from glob import glob
+from random import shuffle
+import os
+import socket
 
 app = None
 
@@ -15,10 +20,6 @@ def init_app(configFile=None):
     app.register_blueprint(index)
 
     def _setupVideoObjLst():
-        from glob import glob
-        from random import shuffle
-        import os
-
         videoPath = app.config['VIDEO_PATH']
         videoFiles = glob(os.path.realpath(videoPath) + '/*.webm')
         videoFiles.sort()
@@ -30,4 +31,21 @@ def init_app(configFile=None):
         app.videoObjLst = zip(hklFiles, videoFiles)
         shuffle(app.videoObjLst)
 
+    def _setupHklDictionary():
+        app.hklFiles = {}
+        app.reverseHklFiles = {}
+        i = 0
+
+        for f in sorted(os.listdir(app.config['HKL_PATH'])):
+            app.hklFiles[f] = i
+            app.reverseHklFiles[i] = f
+            i += 1
+
     _setupVideoObjLst()
+    _setupHklDictionary()
+
+    Session(app)
+
+    app.socket = socket.socket()
+    app.socket.connect((app.config['ENGINE_IP'], app.config['ENGINE_PORT']))
+    print('Connected to engine at %s:%d' % (app.config['ENGINE_IP'], app.config['ENGINE_PORT']))
